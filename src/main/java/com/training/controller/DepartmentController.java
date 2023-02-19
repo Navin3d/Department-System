@@ -11,6 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +48,7 @@ public class DepartmentController {
     	return departments;
     }*/
     
+	@CrossOrigin(origins="*", maxAge = 3600)
     @GetMapping("/departments")
     public List<DepartmentVO> getAllDepartments() {
     	log.debug("getAllDepartments begin ");
@@ -59,6 +61,7 @@ public class DepartmentController {
     
     
     
+    @CrossOrigin(origins="*", maxAge = 3600)
     @GetMapping("/departments/{id}")
     public ResponseEntity<?> getDepartmentById(@Positive @PathVariable("id") int departmentId) {
     	log.info("getDepartmentById begin");
@@ -82,6 +85,7 @@ public class DepartmentController {
 	}
     */
     
+    @CrossOrigin(origins="*", maxAge = 3600)
     @PostMapping("/departments")
     public ResponseEntity<DepartmentVO> createDepartment(@Valid @RequestBody DepartmentVO departmentVO) {
     	System.out.println("createDepartment begin");
@@ -92,13 +96,14 @@ public class DepartmentController {
 	 	return new ResponseEntity<DepartmentVO>(department,responseHeaders,HttpStatus.CREATED);
 	}
     
-    
+    @CrossOrigin(origins="*", maxAge = 3600)
     @PutMapping("/departments/{departmentId}")
     public DepartmentVO updateDepartment(@PathVariable int departmentId,@Valid @RequestBody DepartmentVO departmentDetails) {
     	DepartmentVO department =  service.updateDepartment(departmentId, departmentDetails);
 		return department;
 	}
     
+    @CrossOrigin(origins="*", maxAge = 3600)
     @DeleteMapping("/departments/{departmentId}")
     public ResponseEntity<DepartmentVO> deleteDepartment(@PathVariable int departmentId) {
     	DepartmentVO department = service.deleteDepartment(departmentId);
